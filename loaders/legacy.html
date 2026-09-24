@@ -7,22 +7,28 @@
 #lth-root{
   position:fixed;inset:0;width:100vw;height:100vh;overflow:hidden;
   font-family:'Inter',system-ui,sans-serif;
-  background:#04091f;
+  /* Forex chart background image */
+  background:
+    url('/assets/forex-chart-bg.jpg') center center / cover no-repeat;
 }
 
-/* ── Full-canvas background ── */
+/* ── Canvas: now used only for particle overlay, not background ── */
 #lth-canvas{
   position:absolute;inset:0;width:100%;height:100%;
   display:block;
+  opacity:0.35;
 }
 
-/* ── Radial glow overlay on top of canvas ── */
+/* ── Multi-layer overlay: darken chart + inject blue brand atmosphere ── */
 .lth-overlay{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 55% at 50% 0%,rgba(30,64,175,.45) 0%,transparent 65%),
-    radial-gradient(ellipse 50% 40% at 80% 80%,rgba(37,99,235,.15) 0%,transparent 55%),
-    radial-gradient(ellipse 40% 35% at 15% 70%,rgba(59,130,246,.1) 0%,transparent 55%);
+    /* Topmost: deep blue vignette so card/text is always readable */
+    linear-gradient(180deg,rgba(4,9,31,.82) 0%,rgba(4,9,31,.55) 40%,rgba(4,9,31,.75) 100%),
+    /* Blue brand glow from top */
+    radial-gradient(ellipse 90% 55% at 50% -5%,rgba(30,64,175,.55) 0%,transparent 65%),
+    /* Subtle right-bottom depth */
+    radial-gradient(ellipse 55% 45% at 85% 90%,rgba(37,99,235,.18) 0%,transparent 55%);
   pointer-events:none;
 }
 
@@ -418,16 +424,12 @@
     }
   }
 
-  /* -- main animation -- */
+  /* -- main animation: particles only (chart image is the background) -- */
   var startT=null;
   function frame(ts){
     if(!startT)startT=ts;
-    var t=(ts-startT)/1000;
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    drawMatrix(t);
-    drawGrid();
-    drawLines(t);
     drawParticles();
 
     requestAnimationFrame(frame);
