@@ -62,6 +62,12 @@
       sessionStorage.setItem('pkce_code_verifier_timestamp', Date.now().toString());
       sessionStorage.setItem('oauth_state', state);
       sessionStorage.setItem('oauth_state_timestamp', Date.now().toString());
+      try {
+        localStorage.setItem('pkce_code_verifier', codeVerifier);
+        localStorage.setItem('pkce_code_verifier_timestamp', Date.now().toString());
+        localStorage.setItem('oauth_state', state);
+        localStorage.setItem('oauth_state_timestamp', Date.now().toString());
+      } catch(e){}
 
       // 5. Build New Deriv OAuth2 authorization URL (never includes legacy app_id)
       var isLocal = /localhost|127\.0\.0\.1/i.test(window.location.hostname);
