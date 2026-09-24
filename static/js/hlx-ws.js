@@ -22,7 +22,7 @@
   // Falls back to the hardcoded Legacy Trading Hub app_id if the global isn't set yet.
   var HLX_APP_ID = (typeof window !== 'undefined' && window.HLX_SETTINGS && window.HLX_SETTINGS.newAppId)
     ? window.HLX_SETTINGS.newAppId
-    : '34qV9FtmeYPRVWVJXIxr2'; // Legacy Trading Hub Deriv app (markup / commission)
+    : '34upwmAmuO1weyybB7ptp'; // Legacy Trading Hub Deriv app (markup / commission)
   var PUBLIC_APP_ID = '1089';               // Deriv public app for anonymous data
 
   // `active_loginid` alone is NOT proof of a real session — the app also sets

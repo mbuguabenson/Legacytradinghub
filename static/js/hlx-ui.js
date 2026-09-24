@@ -9,7 +9,7 @@
   var WHATSAPP = 'https://wa.me/216434';
   var CLIENT_ID = (typeof window !== 'undefined' && window.HLX_SETTINGS && window.HLX_SETTINGS.newAppId)
     ? window.HLX_SETTINGS.newAppId
-    : (localStorage.getItem('config.new_app_id') || '34qV9FtmeYPRVWVJXIxr2');
+    : (localStorage.getItem('config.new_app_id') || '34upwmAmuO1weyybB7ptp');
 
   var css = document.createElement('style');
   css.textContent =
@@ -35,7 +35,7 @@
     try {
       var clientId = (window.HLX_SETTINGS && window.HLX_SETTINGS.newAppId) ||
                      localStorage.getItem('config.new_app_id') ||
-                     '34qV9FtmeYPRVWVJXIxr2';
+                     '34upwmAmuO1weyybB7ptp';
 
       // 1. Generate 64-byte random code_verifier
       var charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
