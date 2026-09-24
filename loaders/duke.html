@@ -1,122 +1,342 @@
 <style>
-/* Migrated Dukesites AppLoader styles (inline for static loader) */
-/* (trimmed and adapted from src/components/app-loader/app-loader.scss) */
-.georgetown-loader{position:fixed;inset:0;width:100vw;height:100vh;overflow:hidden;z-index:9999;font-family:Roboto,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#e5e7eb;background:radial-gradient(1200px 700px at 50% 20%,rgba(23,76,138,.35),transparent 60%),linear-gradient(180deg,#061528 0%,#031022 50%,#061528 100%)}
-.smart-loader-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.09) 1px,transparent 1px);background-size:44px 44px;background-position:center;opacity:.9}
-.smart-loader-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(800px 480px at 50% 40%,rgba(12,172,255,.18),transparent 70%)}
-.smart-loader-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.65))}
-.smart-loader__wrap{position:relative;z-index:2;height:100%;display:grid;place-items:center;padding:2.4rem}
-.smart-loader__card{width:min(420px,92vw);border-radius:18px;background:linear-gradient(180deg,rgba(9,25,48,.88),rgba(6,16,32,.92));border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 60px rgba(0,0,0,.55);padding:28px 26px 18px}
-.smart-loader__header{display:grid;gap:14px;justify-items:center}
-.smart-loader__brand{display:flex;align-items:center;gap:10px;color:#22d3ee}
-.smart-loader__brand-mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.22);box-shadow:0 0 16px rgba(34,211,238,.22)}
-.smart-loader__brand-text{display:grid;gap:4px;line-height:1;text-align:center;min-width:0}
-.smart-loader__brand-title{font-weight:900;letter-spacing:.18em;font-size:2rem;text-transform:uppercase;background:linear-gradient(90deg,#22d3ee,#3b82f6,#f5c32c,#10b981);background-clip:text;-webkit-background-clip:text;background-size:200% auto;color:transparent;animation:brandGlow 3.5s ease-in-out infinite alternate,brandSlide 6s linear infinite;white-space:pre-wrap;word-break:break-word}
-.smart-loader__brand-subtitle{font-weight:700;letter-spacing:.26em;font-size:.8rem;color:rgba(229,231,235,.78)}
-.smart-loader__welcome{grid;text-align:center}
-.smart-loader__welcome-line{font-size:13px;color:rgba(229,231,235,.86)}
-.smart-loader__welcome-accent{color:#22d3ee;font-weight:700}
-.smart-loader__welcome-sub{font-size:11px;color:rgba(229,231,235,.55);margin-top:3px}
-.smart-loader__steps{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px;margin:18px 0 16px;align-items:start}
-.smart-loader__step{display:grid;justify-items:center;gap:6px;color:rgba(229,231,235,.55)}
-.smart-loader__step-dot{width:26px;height:26px;border-radius:9999px;display:grid;place-items:center;font-weight:800;font-size:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
-.smart-loader__step-label{font-size:9px;letter-spacing:.02em;text-transform:uppercase;text-align:center;line-height:1.2}
-.smart-loader__step--done .smart-loader__step-dot,.smart-loader__step--active .smart-loader__step-dot{background:rgba(34,211,238,.18);border-color:rgba(34,211,238,.35);color:#22d3ee}
-.smart-loader__step--active .smart-loader__step-dot{box-shadow:0 0 0 3px rgba(34,211,238,.12)}
-.smart-loader__tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0 18px}
-.smart-loader__tile{border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);padding:14px 10px;text-align:center}
-.smart-loader__tile-icon{width:42px;height:42px;border-radius:9999px;display:grid;place-items:center;margin:0 auto 8px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.2);color:#22d3ee;font-size:16px;animation:emojiTwinkle 2.1s ease-in-out infinite}
-.smart-loader__tile-label{font-size:10px;color:rgba(229,231,235,.8);font-weight:600}
-.smart-loader__status{text-align:center;margin-bottom:10px}
-.smart-loader__status-line{font-size:11px;color:rgba(229,231,235,.7)}
-.smart-loader__status-sub{font-size:12px;color:#22d3ee;font-weight:700;margin-top:4px}
-.progress-wrapper{display:grid;gap:8px}
-.progress-track{position:relative;width:100%;height:9px;border-radius:9999px;overflow:hidden;background:rgba(255,255,255,.08)}
-.loading-bar-glow{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#22d3ee,#3b82f6,#10b981);transition:width .18s linear}
-.loading-bar-pulse{position:absolute;inset:0 auto 0 0;width:30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:pulseMove 2.6s linear infinite}
-.progress-counter{text-align:right;font-size:11px;color:rgba(229,231,235,.72)}
-.smart-loader__footer{margin-top:14px;text-align:center;font-size:10px;color:rgba(229,231,235,.46)}
-@keyframes brandGlow{from{filter:drop-shadow(0 0 0 rgba(34,211,238,0))}to{filter:drop-shadow(0 0 10px rgba(34,211,238,.28))}}@keyframes brandSlide{from{background-position:0% center}to{background-position:200% center}}@keyframes emojiTwinkle{0%,100%{transform:translateY(0);opacity:.8}50%{transform:translateY(-2px);opacity:1}}@keyframes pulseMove{from{transform:translateX(-120%)}to{transform:translateX(420%)}}
+/* ── BinaryTool Loader — Blue Edition ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+.bt-loader{
+  position:fixed;inset:0;width:100vw;height:100vh;overflow:hidden;
+  font-family:'Inter',system-ui,sans-serif;color:#e2eaff;
+  background:radial-gradient(ellipse 110% 80% at 50% -10%,rgba(30,80,200,.55),transparent 65%),
+             radial-gradient(ellipse 80% 60% at 90% 100%,rgba(0,120,255,.18),transparent 55%),
+             linear-gradient(180deg,#04091f 0%,#060d28 45%,#050b22 100%);
+}
+
+/* ── Animated background grid ── */
+.bt-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(59,130,246,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(59,130,246,.07) 1px,transparent 1px);
+  background-size:48px 48px;
+  animation:gridPan 20s linear infinite;
+}
+@keyframes gridPan{from{background-position:0 0}to{background-position:48px 48px}}
+
+/* ── Floating particles ── */
+.bt-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.bt-particle{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle,rgba(96,165,250,.9),transparent 70%);
+  animation:floatUp linear infinite;
+  filter:blur(1px);
+}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:.6}
+  100%{transform:translateY(-120px) scale(1);opacity:0}
+}
+
+/* ── Glow orb ── */
+.bt-orb{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  top:50%;left:50%;transform:translate(-50%,-60%);
+  background:radial-gradient(circle,rgba(59,130,246,.12) 0%,rgba(37,99,235,.06) 40%,transparent 70%);
+  animation:orbPulse 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes orbPulse{0%,100%{transform:translate(-50%,-60%) scale(1);opacity:.6}50%{transform:translate(-50%,-60%) scale(1.15);opacity:1}}
+
+/* ── Center wrap ── */
+.bt-wrap{
+  position:relative;z-index:2;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem;
+}
+
+/* ── Main card ── */
+.bt-card{
+  width:min(460px,94vw);
+  border-radius:22px;
+  background:linear-gradient(160deg,rgba(10,20,60,.82) 0%,rgba(6,14,42,.9) 100%);
+  border:1px solid rgba(96,165,250,.18);
+  box-shadow:
+    0 0 0 1px rgba(59,130,246,.08),
+    0 24px 80px rgba(0,0,0,.65),
+    0 0 60px rgba(37,99,235,.12) inset;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  padding:32px 28px 24px;
+  animation:cardIn .6s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+
+/* ── Logo / brand ── */
+.bt-brand{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:20px}
+.bt-brand-icon{
+  width:48px;height:48px;border-radius:14px;flex-shrink:0;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(37,99,235,.35),rgba(96,165,250,.18));
+  border:1px solid rgba(96,165,250,.35);
+  box-shadow:0 0 24px rgba(59,130,246,.3),0 0 8px rgba(96,165,250,.2) inset;
+  animation:iconGlow 2.8s ease-in-out infinite;
+}
+@keyframes iconGlow{0%,100%{box-shadow:0 0 18px rgba(59,130,246,.3),0 0 8px rgba(96,165,250,.15) inset}50%{box-shadow:0 0 34px rgba(59,130,246,.55),0 0 16px rgba(96,165,250,.3) inset}}
+.bt-brand-icon svg{color:#60a5fa;filter:drop-shadow(0 0 6px rgba(96,165,250,.8))}
+
+.bt-brand-text{text-align:left}
+.bt-brand-name{
+  font-size:1.85rem;font-weight:900;letter-spacing:.04em;line-height:1;
+  background:linear-gradient(90deg,#93c5fd 0%,#60a5fa 35%,#3b82f6 65%,#818cf8 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:200% auto;animation:brandShift 5s linear infinite;
+}
+@keyframes brandShift{from{background-position:0% center}to{background-position:200% center}}
+.bt-brand-sub{
+  font-size:.7rem;font-weight:600;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(147,197,253,.55);margin-top:3px;
+}
+
+/* ── Welcome line ── */
+.bt-welcome{text-align:center;margin-bottom:22px}
+.bt-welcome-main{font-size:.95rem;color:rgba(226,234,255,.8);font-weight:400}
+.bt-welcome-main span{color:#60a5fa;font-weight:700}
+.bt-welcome-tag{font-size:.75rem;color:rgba(148,163,184,.55);margin-top:5px;letter-spacing:.02em}
+
+/* ── Step indicators ── */
+.bt-steps{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px;margin-bottom:20px}
+.bt-step{display:grid;justify-items:center;gap:5px;cursor:default}
+.bt-step-dot{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:11px;font-weight:700;
+  background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.1);
+  color:rgba(148,163,184,.5);
+  transition:all .3s ease;
+}
+.bt-step-label{font-size:8.5px;letter-spacing:.04em;text-transform:uppercase;color:rgba(148,163,184,.45);text-align:center;line-height:1.3;transition:color .3s}
+.bt-step--done .bt-step-dot{background:rgba(37,99,235,.25);border-color:rgba(96,165,250,.5);color:#60a5fa}
+.bt-step--active .bt-step-dot{background:rgba(59,130,246,.3);border-color:#60a5fa;color:#93c5fd;box-shadow:0 0 0 4px rgba(59,130,246,.15),0 0 14px rgba(59,130,246,.4)}
+.bt-step--active .bt-step-label{color:rgba(147,197,253,.8)}
+
+/* ── Feature tiles ── */
+.bt-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.bt-tile{
+  border-radius:12px;padding:14px 8px 12px;text-align:center;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(96,165,250,.1);
+  transition:border-color .3s,background .3s;
+}
+.bt-tile:hover{background:rgba(59,130,246,.07);border-color:rgba(96,165,250,.22)}
+.bt-tile-icon{
+  width:38px;height:38px;margin:0 auto 8px;border-radius:50%;
+  display:grid;place-items:center;font-size:16px;
+  background:rgba(37,99,235,.12);border:1px solid rgba(96,165,250,.18);
+  animation:tileFloat 2.8s ease-in-out infinite;
+}
+.bt-tile:nth-child(2) .bt-tile-icon{animation-delay:.4s}
+.bt-tile:nth-child(3) .bt-tile-icon{animation-delay:.8s}
+.bt-tile:nth-child(4) .bt-tile-icon{animation-delay:.2s}
+.bt-tile:nth-child(5) .bt-tile-icon{animation-delay:.6s}
+.bt-tile:nth-child(6) .bt-tile-icon{animation-delay:1s}
+@keyframes tileFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.bt-tile-label{font-size:9.5px;font-weight:600;color:rgba(147,197,253,.75);letter-spacing:.02em}
+
+/* ── Status text ── */
+.bt-status{text-align:center;margin-bottom:14px}
+.bt-status-line{font-size:11px;color:rgba(148,163,184,.6)}
+.bt-status-msg{font-size:12.5px;color:#60a5fa;font-weight:600;margin-top:4px;min-height:1.4em;transition:opacity .3s}
+
+/* ── Progress ── */
+.bt-progress-wrap{display:grid;gap:6px}
+.bt-progress-track{
+  position:relative;width:100%;height:8px;border-radius:9999px;overflow:hidden;
+  background:rgba(255,255,255,.07);
+}
+.bt-progress-fill{
+  position:absolute;inset:0 auto 0 0;height:100%;border-radius:9999px;
+  background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa,#93c5fd);
+  background-size:200% 100%;
+  transition:width .25s cubic-bezier(.4,0,.2,1);
+  animation:fillShimmer 2s linear infinite;
+  box-shadow:0 0 12px rgba(59,130,246,.6);
+}
+@keyframes fillShimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+.bt-progress-pulse{
+  position:absolute;top:0;bottom:0;width:40%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  animation:progressPulse 2.2s linear infinite;
+}
+@keyframes progressPulse{from{left:-40%}to{left:130%}}
+.bt-progress-pct{text-align:right;font-size:10.5px;font-weight:600;color:rgba(147,197,253,.7)}
+
+/* ── Footer ── */
+.bt-footer{
+  margin-top:16px;text-align:center;
+  font-size:9.5px;color:rgba(148,163,184,.35);letter-spacing:.03em;
+}
+.bt-footer a{color:rgba(96,165,250,.5);text-decoration:none}
+
+/* ── Reduced-motion ── */
+@media(prefers-reduced-motion:reduce){
+  .bt-particle,.bt-orb,.bt-grid,.bt-brand-name,.bt-progress-pulse,.bt-progress-fill,.bt-tile-icon,.bt-brand-icon{animation:none!important}
+}
 </style>
 
-<div class="georgetown-loader">
-  <div class="smart-loader-bg"></div>
-  <div class="smart-loader__wrap">
-    <div class="smart-loader__card">
-      <div class="smart-loader__header">
-        <div class="smart-loader__brand">
-          <div class="smart-loader__brand-mark" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 19V5M4 19H20M7 15L11 11L14 14L19 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="smart-loader__brand-text">
-            <div class="smart-loader__brand-title">%%APP_NAME%%</div>
-            <div class="smart-loader__brand-subtitle">LOADING</div>
-          </div>
-        </div>
+<!-- Particles -->
+<div class="bt-loader" id="bt-loader-root">
+  <div class="bt-grid"></div>
+  <div class="bt-particles" id="bt-particles"></div>
+  <div class="bt-orb"></div>
 
-        <div class="smart-loader__welcome">
-          <div class="smart-loader__welcome-line">Welcome to <span class="smart-loader__welcome-accent">%%APP_NAME%%</span></div>
-          <div class="smart-loader__welcome-sub">%%TAGLINE%%</div>
+  <div class="bt-wrap">
+    <div class="bt-card">
+
+      <!-- Brand -->
+      <div class="bt-brand">
+        <div class="bt-brand-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19V5M4 19H20M7 15L11 11L14 14L19 9"/>
+          </svg>
+        </div>
+        <div class="bt-brand-text">
+          <div class="bt-brand-name">%%APP_NAME%%</div>
+          <div class="bt-brand-sub">Trading Platform</div>
         </div>
       </div>
 
-      <div class="smart-loader__steps" id="duke-steps"></div>
-
-      <div class="smart-loader__tiles" id="duke-tiles"></div>
-
-      <div class="smart-loader__status">
-        <div class="smart-loader__status-line">Establishing secure connection...</div>
-        <div class="smart-loader__status-sub" id="duke-status">Connecting...</div>
+      <!-- Welcome -->
+      <div class="bt-welcome">
+        <div class="bt-welcome-main">Welcome to <span>%%APP_NAME%%</span></div>
+        <div class="bt-welcome-tag">%%TAGLINE%%</div>
       </div>
 
-      <div class="progress-wrapper">
-        <div class="progress-track">
-          <div class="loading-bar-glow" id="duke-bar" style="width:0%"></div>
-          <div class="loading-bar-pulse"></div>
+      <!-- Steps -->
+      <div class="bt-steps" id="bt-steps"></div>
+
+      <!-- Feature Tiles -->
+      <div class="bt-tiles" id="bt-tiles"></div>
+
+      <!-- Status -->
+      <div class="bt-status">
+        <div class="bt-status-line">Initializing secure trading environment</div>
+        <div class="bt-status-msg" id="bt-msg">Connecting to Deriv servers…</div>
+      </div>
+
+      <!-- Progress -->
+      <div class="bt-progress-wrap">
+        <div class="bt-progress-track">
+          <div class="bt-progress-fill" id="bt-fill" style="width:0%"></div>
+          <div class="bt-progress-pulse"></div>
         </div>
-        <div class="progress-counter" id="duke-counter">0%</div>
+        <div class="bt-progress-pct" id="bt-pct">0%</div>
       </div>
 
-      <div class="smart-loader__footer">© %%YEAR%% %%APP_NAME%%. Powered by Deriv.</div>
+      <!-- Footer -->
+      <div class="bt-footer">
+        © <span id="bt-year"></span> %%APP_NAME%% · Powered by <a href="https://deriv.com" target="_blank" rel="noopener">Deriv</a>
+      </div>
+
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  const steps = ['Connection','Market Data','AI Engine','Trading Bots','Final Setup'];
-  const tiles = ['Free Bots','AI Bots','Analysis Tool','Smart Analysis','Copy Trading','Signals'];
-  const msgs = ['Initializing','Connecting to trading server...','Loading charts','Loading Blockly','Preparing dashboard','Ready'];
-  const stepsEl = document.getElementById('duke-steps');
-  steps.forEach((s,i)=>{const div=document.createElement('div');div.className='smart-loader__step';div.innerHTML=`<div class="smart-loader__step-dot">${i+1}</div><div class="smart-loader__step-label">${s}</div>`;stepsEl.appendChild(div)});
-  const tilesEl = document.getElementById('duke-tiles');
-  const tileIcons = ['🤖','🧠','📊','✨','📄','📡'];
-  tiles.forEach((t,i)=>{const d=document.createElement('div');d.className='smart-loader__tile';d.innerHTML=`<div class="smart-loader__tile-icon">${tileIcons[i]||'🔧'}</div><div class="smart-loader__tile-label">${t}</div>`;tilesEl.appendChild(d)});
-  let p=0,mi=0;
-  const bar=document.getElementById('duke-bar');
-  const counter=document.getElementById('duke-counter');
-  const status=document.getElementById('duke-status');
-  const stepDots = document.querySelectorAll('.smart-loader__step');
+  // ── Year ──────────────────────────────────────────────────────────────────
+  var yr = document.getElementById('bt-year');
+  if(yr) yr.textContent = new Date().getFullYear();
+
+  // ── Particles ─────────────────────────────────────────────────────────────
+  var pc = document.getElementById('bt-particles');
+  if(pc){
+    for(var i=0;i<22;i++){
+      var p=document.createElement('div');
+      p.className='bt-particle';
+      var size=(Math.random()*5+3)+'px';
+      p.style.cssText=[
+        'width:'+size,'height:'+size,
+        'left:'+(Math.random()*100)+'%',
+        'animation-duration:'+(Math.random()*12+8)+'s',
+        'animation-delay:'+(Math.random()*10)+'s',
+        'opacity:'+(Math.random()*.6+.2)
+      ].join(';');
+      pc.appendChild(p);
+    }
+  }
+
+  // ── Steps ─────────────────────────────────────────────────────────────────
+  var STEPS=['Connection','Market Data','AI Engine','Bots','Ready'];
+  var stepsEl=document.getElementById('bt-steps');
+  if(stepsEl){
+    STEPS.forEach(function(s,i){
+      var d=document.createElement('div');
+      d.className='bt-step';
+      d.innerHTML='<div class="bt-step-dot">'+(i+1)+'</div><div class="bt-step-label">'+s+'</div>';
+      stepsEl.appendChild(d);
+    });
+  }
+
+  // ── Tiles ─────────────────────────────────────────────────────────────────
+  var TILES=[['🤖','Free Bots'],['🧠','AI Bots'],['📊','Analysis'],['✨','Signals'],['📄','Smart Copy'],['📡','Live Feed']];
+  var tilesEl=document.getElementById('bt-tiles');
+  if(tilesEl){
+    TILES.forEach(function(t){
+      var d=document.createElement('div');
+      d.className='bt-tile';
+      d.innerHTML='<div class="bt-tile-icon">'+t[0]+'</div><div class="bt-tile-label">'+t[1]+'</div>';
+      tilesEl.appendChild(d);
+    });
+  }
+
+  // ── Progress animation ────────────────────────────────────────────────────
+  var MSGS=[
+    'Connecting to Deriv servers…',
+    'Loading market data…',
+    'Initializing AI engine…',
+    'Loading trading bots…',
+    'Preparing your dashboard…',
+    'Almost there…',
+    'Ready to trade!'
+  ];
+
+  var fill=document.getElementById('bt-fill');
+  var pct=document.getElementById('bt-pct');
+  var msg=document.getElementById('bt-msg');
+  var stepDots=document.querySelectorAll('.bt-step');
+  var p=0, mi=0;
+
+  function updateSteps(){
+    stepDots.forEach(function(d,i){
+      d.classList.remove('bt-step--done','bt-step--active');
+      var threshold=Math.floor((p/100)*STEPS.length);
+      if(i<threshold) d.classList.add('bt-step--done');
+      if(i===threshold) d.classList.add('bt-step--active');
+    });
+  }
+
   function tick(){
-    p = Math.min(100, p + Math.floor(Math.random()*8)+2);
-    if(bar) bar.style.width = p + '%';
-    if(counter) counter.textContent = p + '%';
+    p=Math.min(100,p+Math.floor(Math.random()*7)+3);
+    if(fill) fill.style.width=p+'%';
+    if(pct) pct.textContent=p+'%';
+    if(msg) msg.textContent=MSGS[Math.min(mi,MSGS.length-1)];
+    if(Math.random()>0.65) mi++;
+    updateSteps();
+
     if(p>=100){
-      // fade out loader
-      const root = document.querySelector('.georgetown-loader');
-      if(root){root.style.transition='opacity .5s ease';root.style.opacity='0';setTimeout(()=>{root.parentNode && root.parentNode.removeChild(root)},600)}
+      // Signal to the outer hlx-loader dismissal logic that we're done
+      var root=document.getElementById('bt-loader-root');
+      if(root){
+        root.style.transition='opacity .5s ease,visibility .5s ease';
+        root.style.opacity='0';
+        root.style.visibility='hidden';
+        setTimeout(function(){if(root&&root.parentNode)root.parentNode.removeChild(root);},600);
+      }
       return;
     }
-    if(status) status.textContent = msgs[mi % msgs.length];
-    if(Math.random()>0.7){mi++;}
-    // update step highlight
-    stepDots.forEach((d,idx)=>{
-      d.classList.remove('smart-loader__step--done','smart-loader__step--active');
-      if(idx < Math.floor((p/100)*steps.length)) d.classList.add('smart-loader__step--done');
-      if(idx === Math.floor((p/100)*steps.length)) d.classList.add('smart-loader__step--active');
-    });
-    setTimeout(tick, 350 + Math.random()*250);
+    setTimeout(tick,320+Math.random()*280);
   }
-  setTimeout(tick,300);
+  setTimeout(tick,200);
 })();
 </script>

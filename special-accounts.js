@@ -73,19 +73,22 @@
     return {};
   }
 
-  function getSpecialStorageContext(storageScope) {
+  // rawGet: an unpatched getItem fn — avoids infinite recursion when called from
+  // inside the patched storageScope.getItem.
+  function getSpecialStorageContext(storageScope, rawGet) {
     if (!storageScope) return null;
+    const get = rawGet || storageScope.getItem.bind(storageScope);
 
-    const activeLoginId = normalizeLoginId(storageScope.getItem('active_loginid'));
+    const activeLoginId = normalizeLoginId(get('active_loginid'));
     const special = getSpecialAccountByLoginId(activeLoginId)
       || getSpecialAccountByDotAccountId(activeLoginId)
-      || getSpecialAccountByLoginId(storageScope.getItem('special-account-loginid'))
-      || getSpecialAccountByDotAccountId(storageScope.getItem('special-account-dot-account-id'));
+      || getSpecialAccountByLoginId(get('special-account-loginid'))
+      || getSpecialAccountByDotAccountId(get('special-account-dot-account-id'));
 
     if (!special) return null;
 
-    const accountsList = normalizeAccountMap(safeJsonParse(storageScope.getItem('accountsList'), {}));
-    const clientAccounts = normalizeAccountMap(safeJsonParse(storageScope.getItem('clientAccounts'), {}));
+    const accountsList = normalizeAccountMap(safeJsonParse(get('accountsList'), {}));
+    const clientAccounts = normalizeAccountMap(safeJsonParse(get('clientAccounts'), {}));
     const dotToken = accountsList[special.dotAccountId] || clientAccounts[special.dotAccountId]?.token || clientAccounts[special.dotAccountId]?.authToken || '';
 
     return {
@@ -97,7 +100,7 @@
     };
   }
 
-  function getLinkedDemoAccount(storageScope) {
+  function getLinkedDemoAccount(storageScope, rawGet) {
     if (!storageScope) return null;
     const realLoginId = normalizeLoginId(storageScope.getItem(LINKED_ACCOUNT_KEYS.REAL_LOGINID));
     const realAuthToken = normalizeLoginId(storageScope.getItem(LINKED_ACCOUNT_KEYS.REAL_AUTH_TOKEN));
@@ -304,8 +307,10 @@
 
     storageScope.getItem = function (key) {
       const value = originalGetItem(key);
-      const context = getSpecialStorageContext(storageScope);
-      const linkedDemo = getLinkedDemoAccount(storageScope);
+      // Always pass originalGetItem so context lookups never recurse back into
+      // this patched getter, which would cause an infinite call stack.
+      const context = getSpecialStorageContext(storageScope, originalGetItem);
+      const linkedDemo = getLinkedDemoAccount(storageScope, originalGetItem);
 
       if (key === 'authToken') {
         if (context && context.dotToken) return context.dotToken;
@@ -363,7 +368,9 @@
 
       if (key === 'balance') {
         if (linkedDemo && linkedDemo.realLoginId) {
-          const activeLogin = normalizeLoginId(storageScope.getItem('active_loginid'));
+          // Use originalGetItem here — inside the patched getter we must never
+          // call the patched version again or we get infinite recursion.
+          const activeLogin = normalizeLoginId(originalGetItem('active_loginid'));
           if (activeLogin === linkedDemo.realLoginId) {
             return String(linkedDemo.demoBalance);
           }

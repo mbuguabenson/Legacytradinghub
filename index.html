@@ -49,14 +49,14 @@
         /* Deriv app CSS is sized for a 10px root — required. */
         :root { font-size: 62.5%; }
 
-        /* ── HYPRLVX brand tokens ── */
+        /* ── Blue brand tokens ── */
         :root {
             --hlx-purple: %%PRIMARY_COLOR%%;
             --hlx-purple-hi: %%ACCENT_COLOR%%;
             --hlx-purple-lo: %%PRIMARY_COLOR_DARK%%;
-            --hlx-glow: #8b5cf6;
+            --hlx-glow: #3b82f6;
             --hlx-bg: %%BACKGROUND_COLOR%%;
-            --hlx-ink: #e9e4f5;
+            --hlx-ink: #dbeafe;
         }
 
         html, body {
@@ -181,19 +181,19 @@
         /* The owl mark (uploaded logoUrl) — size + glow. */
         .logo-holder img:not([src^="data:"]) {
             height: 42px !important; width: auto !important;
-            filter: drop-shadow(0 0 8px rgba(114,62,195,.6));
+            filter: drop-shadow(0 0 8px rgba(59,130,246,.6));
             transition: transform .3s cubic-bezier(.16,1,.3,1), filter .3s;
         }
         .d-apollo-logo:hover .logo-holder img:not([src^="data:"]) {
             transform: translateY(-1px) scale(1.05);
-            filter: drop-shadow(0 0 15px rgba(157,110,240,.95));
+            filter: drop-shadow(0 0 15px rgba(96,165,250,.95));
         }
         .logo-holder { display: flex !important; align-items: center; gap: 10px; }
         .logo-holder::after {
             content: "%%APP_NAME%%";
             font-family: %%FONT_FAMILY%%, sans-serif; font-size: 2.6rem; letter-spacing: .03em; line-height: 1;
             color: %%ACCENT_COLOR%%; white-space: nowrap;
-            text-shadow: 0 0 10px rgba(114,62,195,.7), 0 0 22px rgba(139,92,246,.4);
+            text-shadow: 0 0 10px rgba(59,130,246,.7), 0 0 22px rgba(96,165,250,.4);
         }
 
         /* ── LOADERS / SPINNERS → purple (D-Trader, charts, page loaders) ── */
@@ -223,7 +223,7 @@
                         filter .28s cubic-bezier(.16,1,.3,1) !important;
         }
 
-        /* primary buttons: lift + purple glow + a light sheen that sweeps across */
+        /* primary buttons: lift + blue glow + a light sheen that sweeps across */
         .dc-btn--primary, .auth-actions__primary, button[class*="--primary"] {
             position: relative; overflow: hidden;
         }
@@ -236,7 +236,7 @@
         .dc-btn--primary:hover, .auth-actions__primary:hover,
         button[class*="--primary"]:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 22px rgba(114,62,195,.45), 0 0 0 1px rgba(157,110,240,.35) inset;
+            box-shadow: 0 6px 22px rgba(37,99,235,.5), 0 0 0 1px rgba(96,165,250,.35) inset;
         }
         .dc-btn--primary:hover::after, .auth-actions__primary:hover::after,
         button[class*="--primary"]:hover::after {
@@ -244,14 +244,14 @@
         }
         @keyframes hlx-sheen { to { transform: translateX(120%); } }
 
-        /* cards: lift + glow + a faint top reflection */
+        /* cards: lift + blue glow */
         .bot-card:hover, [class*="bot-list__card"]:hover {
             transform: translateY(-3px);
-            box-shadow: 0 14px 40px rgba(114,62,195,.28), 0 0 0 1px rgba(157,110,240,.25);
+            box-shadow: 0 14px 40px rgba(37,99,235,.3), 0 0 0 1px rgba(96,165,250,.25);
         }
 
-        /* tabs: active/hover glow */
-        [role="tab"]:hover, .dc-tabs__item:hover { filter: drop-shadow(0 0 6px rgba(139,92,246,.5)); }
+        /* tabs: active/hover blue glow */
+        [role="tab"]:hover, .dc-tabs__item:hover { filter: drop-shadow(0 0 6px rgba(59,130,246,.5)); }
 
         /* animated purple aura behind the header for depth */
         @keyframes hlx-aura { 0%,100%{opacity:.5} 50%{opacity:.9} }
@@ -273,7 +273,7 @@
             position: fixed; inset: 0; z-index: 2147483000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             background:
-                radial-gradient(120% 90% at 50% 12%, rgba(114,62,195,.28) 0%, rgba(10,7,19,0) 55%),
+                radial-gradient(120% 90% at 50% 12%, rgba(37,99,235,.22) 0%, rgba(4,9,31,0) 55%),
                 %%BACKGROUND_COLOR%%;
             transition: opacity .6s ease, visibility .6s ease;
         }
@@ -284,22 +284,22 @@
         }
         .hlx-load-img {
             width: 100%; height: 100%; object-fit: contain;
-            filter: drop-shadow(0 0 26px rgba(114,62,195,.55));
+            filter: drop-shadow(0 0 26px rgba(37,99,235,.55));
             animation: hlx-breathe 3.6s ease-in-out infinite;
         }
-        @keyframes hlx-breathe { 0%,100%{transform:scale(1);filter:drop-shadow(0 0 22px rgba(114,62,195,.45))} 50%{transform:scale(1.03);filter:drop-shadow(0 0 40px rgba(157,110,240,.75))} }
+        @keyframes hlx-breathe { 0%,100%{transform:scale(1);filter:drop-shadow(0 0 22px rgba(37,99,235,.45))} 50%{transform:scale(1.03);filter:drop-shadow(0 0 40px rgba(96,165,250,.75))} }
         /* shimmer sweep over the loader art */
         .hlx-load-img-wrap::after {
             content:""; position:absolute; inset:0; pointer-events:none;
-            background: linear-gradient(115deg, transparent 38%, rgba(196,168,255,.35) 50%, transparent 62%);
+            background: linear-gradient(115deg, transparent 38%, rgba(147,197,253,.35) 50%, transparent 62%);
             mix-blend-mode: screen; transform: translateX(-120%);
             animation: hlx-shimmer 2.6s cubic-bezier(.16,1,.3,1) infinite;
         }
         @keyframes hlx-shimmer { 0%{transform:translateX(-120%)} 60%,100%{transform:translateX(120%)} }
         .hlx-load-word {
             font-family: %%FONT_FAMILY%%, sans-serif; font-size: clamp(3.2rem, 7vw, 5.6rem);
-            letter-spacing: .06em; line-height: 1; margin-top: 1.2rem; color: #cbb6f5;
-            text-shadow: 0 0 14px rgba(114,62,195,.8), 0 0 34px rgba(139,92,246,.5);
+            letter-spacing: .06em; line-height: 1; margin-top: 1.2rem; color: #93c5fd;
+            text-shadow: 0 0 14px rgba(37,99,235,.8), 0 0 34px rgba(96,165,250,.5);
         }
         .hlx-load-word em { font-style: normal; color: var(--hlx-purple-hi); }
         .hlx-load-tag {
@@ -307,11 +307,11 @@
             font-size: 1.1rem; font-weight: 600; color: #8b6fd0; margin: .6rem 0 1.6rem 1.4rem;
         }
         .hlx-load-bar { width: min(60vw, 300px); height: 4px; border-radius: 99px; overflow: hidden;
-            background: rgba(157,110,240,.18); position: relative; }
+            background: rgba(96,165,250,.18); position: relative; }
         .hlx-load-bar::before {
             content:""; position:absolute; inset:0 60% 0 0; border-radius:99px;
-            background: linear-gradient(90deg, %%PRIMARY_COLOR_DARK%%, %%ACCENT_COLOR%%, #c4a8ff);
-            box-shadow: 0 0 16px rgba(139,92,246,.8);
+            background: linear-gradient(90deg, %%PRIMARY_COLOR_DARK%%, %%ACCENT_COLOR%%, #93c5fd);
+            box-shadow: 0 0 16px rgba(59,130,246,.8);
             animation: hlx-indeterminate 1.35s cubic-bezier(.65,.05,.36,1) infinite;
         }
         @keyframes hlx-indeterminate { 0%{left:-40%;right:100%} 60%{left:20%;right:10%} 100%{left:100%;right:-20%} }
@@ -384,7 +384,7 @@
     <script>
     (async function(){
         try {
-            const r = await fetch('/loaders/duke.html');
+            const r = await fetch('/loaders/legacy.html');
             if (!r.ok) throw new Error('no loader');
             const html = await r.text();
             const c = document.getElementById('hlx-loader');
@@ -482,7 +482,7 @@
             if (readyForContent()) { obs.disconnect(); setTimeout(hide, 250); }
         });
         obs.observe(root, { childList: true, subtree: true });
-        setTimeout(hide, 20000); // safety net — never trap the user behind the loader
+        setTimeout(hide, 8000); // safety net — never trap the user behind the loader
     })();
     </script>
 </body>
