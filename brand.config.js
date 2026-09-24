@@ -34,7 +34,7 @@ const DEFAULT_SITES = {
     tagline: 'Institutional-Grade Trading Intelligence.',
     description: 'Premium algorithmic trading suite powered by Deriv.',
     derivAppId: '34qV9FtmeYPRVWVJXIxr2',
-    allowedDomains: ['profhubdtrader.vercel.app', 'www.profhubdtrader.vercel.app'],
+    allowedDomains: ['profhubdtrader.vercel.app', 'www.profhubdtrader.vercel.app', 'localhost'],
     primaryDomain: 'profhubdtrader.vercel.app',
     primaryColor: '#1e40af',
     accentColor: '#3b82f6',
