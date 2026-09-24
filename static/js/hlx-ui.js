@@ -64,12 +64,17 @@
       sessionStorage.setItem('oauth_state_timestamp', Date.now().toString());
 
       // 5. Build New Deriv OAuth2 authorization URL (never includes legacy app_id)
-      var redirectUri = window.location.origin + '/';
+      var registeredUri = (window.HLX_SETTINGS && (window.HLX_SETTINGS.redirectUri || window.HLX_SETTINGS.redirectUrl)) ||
+                          localStorage.getItem('config.redirect_uri') ||
+                          'https://profhubdtrader.vercel.app';
+      var isLocal = /localhost|127\.0\.0\.1/i.test(window.location.hostname);
+      var redirectUri = isLocal ? registeredUri : window.location.origin;
+
       var params = new URLSearchParams({
         response_type: 'code',
         client_id: clientId,
         redirect_uri: redirectUri,
-        scope: 'read,trade',
+        scope: (window.HLX_SETTINGS && window.HLX_SETTINGS.scope) || localStorage.getItem('config.oauth_scope') || 'trade',
         state: state,
         code_challenge: codeChallenge,
         code_challenge_method: 'S256'

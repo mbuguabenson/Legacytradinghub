@@ -38,6 +38,7 @@ function buildTokens(site) {
     '%%MANIFEST_ICON_URL%%': site.logoUrl || site.faviconUrl || '/assets/platform_logos/ic_platform_deriv_512x512.png',
     '%%CLIENT_ID%%': site.derivAppId || '34qV9FtmeYPRVWVJXIxr2',
     '%%DERIV_APP_ID%%': site.derivAppId || '34qV9FtmeYPRVWVJXIxr2',
+    '%%REDIRECT_URI%%': resolveRedirectUrl(site),
     '%%TAGLINE%%': site.tagline,
     '%%DESCRIPTION%%': site.description,
     '%%PRIMARY_DOMAIN%%': site.primaryDomain,
