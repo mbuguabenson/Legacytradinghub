@@ -494,11 +494,18 @@
 
     if(p>=100){
       var root=document.getElementById('lth-root');
+      var loader=document.getElementById('hlx-loader');
       if(root){
         root.style.transition='opacity .55s ease,visibility .55s ease';
         root.style.opacity='0';root.style.visibility='hidden';
-        setTimeout(function(){if(root&&root.parentNode)root.parentNode.removeChild(root);},650);
       }
+      if(loader){
+        loader.classList.add('hlx-hide');
+      }
+      setTimeout(function(){
+        if(root&&root.parentNode)root.parentNode.removeChild(root);
+        if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);
+      },650);
       return;
     }
     setTimeout(tick, 340+Math.random()*260);

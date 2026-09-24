@@ -34,8 +34,10 @@ function buildTokens(site) {
     '%%LOGO_TEXT_MAIN%%': site.logoTextMain,
     '%%LOGO_TEXT_ACCENT%%': site.logoTextAccent,
     '%%LOGO_URL%%': site.logoUrl || '',
-    '%%FAVICON_URL%%': site.faviconUrl || '',
-    '%%MANIFEST_ICON_URL%%': site.logoUrl || site.faviconUrl || '',
+    '%%FAVICON_URL%%': site.faviconUrl || '/assets/media/favicon.png',
+    '%%MANIFEST_ICON_URL%%': site.logoUrl || site.faviconUrl || '/assets/platform_logos/ic_platform_deriv_512x512.png',
+    '%%CLIENT_ID%%': site.derivAppId || '34qV9FtmeYPRVWVJXIxr2',
+    '%%DERIV_APP_ID%%': site.derivAppId || '34qV9FtmeYPRVWVJXIxr2',
     '%%TAGLINE%%': site.tagline,
     '%%DESCRIPTION%%': site.description,
     '%%PRIMARY_DOMAIN%%': site.primaryDomain,
@@ -337,10 +339,6 @@ app.get('/', async (req, res) => {
     '%%ALLOWED_DOMAINS_JSON%%': JSON.stringify(site.allowedDomains || []),
   }));
 });
-app.get('/manifest.json', async (req, res) => {
-  const site = await resolveSiteForReq(req);
-  res.type('json').send(renderTemplate(path.join(__dirname, 'manifest.json'), site));
-});
 
 // Minimal no-op service worker: the build registers a SW for PWA support, but we
 // intentionally ship one with no fetch/caching handler so nothing is cached
@@ -417,6 +415,27 @@ app.use('/bots', express.static(BOT_DIR));
 app.use('/docs', express.static(path.join(__dirname, 'docs'))); // strategy guide PDFs
 app.get('/deriv-logo.svg', (req, res) => res.sendFile(path.join(__dirname, 'deriv-logo.svg')));
 app.get('/robots.txt', (req, res) => res.sendFile(path.join(__dirname, 'robots.txt')));
+
+// Dynamic manifest.json — render brand tokens before sending so the PWA icon,
+// name, and colors are always correct for the current site.
+app.get('/manifest.json', async (req, res) => {
+  noCache(res);
+  const site = await resolveSiteForReq(req);
+  // Build a fallback icon URL: prefer logoUrl, then faviconUrl, then the
+  // local Deriv logo SVG (always present), to prevent a blank icon error.
+  const iconUrl = site.logoUrl || site.faviconUrl || '/assets/platform_logos/ic_platform_deriv_512x512.png';
+  const extraTokens = { '%%MANIFEST_ICON_URL%%': iconUrl };
+  const rendered = renderTemplate(path.join(__dirname, 'manifest.json'), site, extraTokens);
+  res.type('application/json').send(rendered);
+});
+
+// Serve favicon: prefer site faviconUrl redirect, else fall back to PNG favicon
+app.get('/favicon.ico', async (req, res) => {
+  const site = await resolveSiteForReq(req);
+  const url = site.faviconUrl || site.logoUrl || '';
+  if (url && url.startsWith('http')) return res.redirect(302, url);
+  return res.sendFile(path.join(__dirname, 'assets', 'media', 'favicon.png'));
+});
 
 // Legacy HYPRLVX config endpoint (kept for any of our own overlays).
 app.get('/api/site-config', async (req, res) => {

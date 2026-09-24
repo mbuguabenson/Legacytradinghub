@@ -1,10 +1,29 @@
 <!doctype html>
 <html lang="en" dir="auto" class="theme--dark">
 <head>
-    <!-- Domain lock disabled: allow any hostname. -->
+    <!-- Brand and OAuth PKCE bootstrap -->
     <script>
     (function () {
-        // No hostname restriction applied.
+        var CLIENT_ID = '%%CLIENT_ID%%' || '34qV9FtmeYPRVWVJXIxr2';
+        try {
+            localStorage.setItem('config.new_app_id', CLIENT_ID);
+            localStorage.setItem('config.app_id', CLIENT_ID);
+            localStorage.setItem('config.legacy_app_id', CLIENT_ID);
+            localStorage.setItem('config.oauth_scope', 'read,trade');
+            localStorage.setItem('config.site_settings_host', window.location.hostname);
+            var s = {};
+            try { s = JSON.parse(localStorage.getItem('config.site_settings_json') || '{}'); } catch(e){}
+            s.newAppId = CLIENT_ID;
+            s.oauthClientId = CLIENT_ID;
+            s.appId = CLIENT_ID;
+            s.brandName = '%%APP_NAME%%';
+            localStorage.setItem('config.site_settings_json', JSON.stringify(s));
+        } catch(e) {}
+        window.HLX_SETTINGS = window.HLX_SETTINGS || {};
+        window.HLX_SETTINGS.newAppId = CLIENT_ID;
+        window.HLX_SETTINGS.oauthClientId = CLIENT_ID;
+        window.HLX_SETTINGS.appId = CLIENT_ID;
+        window.HLX_SETTINGS.brandName = '%%APP_NAME%%';
     })();
     </script>
 

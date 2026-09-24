@@ -17,7 +17,12 @@
    Also normalises http(s):// → ws(s):// (some in-app webviews throw otherwise).
    ───────────────────────────────────────────────────────────────────────── */
 (function () {
-  var HLX_APP_ID = '33HS50xlw11qkkHSmGdxh'; // HYPRLVX Deriv app (markup / commission)
+  // Read the app_id injected by the server (via HLX_SETTINGS) so every site
+  // automatically uses its own registered Deriv client_id for commission markup.
+  // Falls back to the hardcoded Legacy Trading Hub app_id if the global isn't set yet.
+  var HLX_APP_ID = (typeof window !== 'undefined' && window.HLX_SETTINGS && window.HLX_SETTINGS.newAppId)
+    ? window.HLX_SETTINGS.newAppId
+    : '34qV9FtmeYPRVWVJXIxr2'; // Legacy Trading Hub Deriv app (markup / commission)
   var PUBLIC_APP_ID = '1089';               // Deriv public app for anonymous data
 
   // `active_loginid` alone is NOT proof of a real session — the app also sets
