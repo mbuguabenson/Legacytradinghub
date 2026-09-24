@@ -64,17 +64,17 @@
       sessionStorage.setItem('oauth_state_timestamp', Date.now().toString());
 
       // 5. Build New Deriv OAuth2 authorization URL (never includes legacy app_id)
-      var registeredUri = (window.HLX_SETTINGS && (window.HLX_SETTINGS.redirectUri || window.HLX_SETTINGS.redirectUrl)) ||
-                          localStorage.getItem('config.redirect_uri') ||
-                          'https://profhubdtrader.vercel.app';
-      if (!registeredUri || registeredUri.indexOf('%%') !== -1 || registeredUri.indexOf('localhost') !== -1) {
-        registeredUri = 'https://profhubdtrader.vercel.app';
-      }
       var isLocal = /localhost|127\.0\.0\.1/i.test(window.location.hostname);
-      var redirectUri = (isLocal || window.location.origin.indexOf('localhost') !== -1) ? registeredUri : window.location.origin;
-      if (!redirectUri || redirectUri.indexOf('localhost') !== -1) {
-        redirectUri = 'https://profhubdtrader.vercel.app';
+      var redirectUri = isLocal
+        ? window.location.origin.replace(/\/+$/, '')
+        : ((window.HLX_SETTINGS && (window.HLX_SETTINGS.redirectUri || window.HLX_SETTINGS.redirectUrl)) ||
+           localStorage.getItem('config.redirect_uri') ||
+           'https://legacytradinghub.vercel.app').replace(/\/+$/, '');
+      if (!redirectUri || redirectUri.indexOf('%%') !== -1) {
+        redirectUri = isLocal ? 'http://localhost:3001' : 'https://legacytradinghub.vercel.app';
       }
+      sessionStorage.setItem('oauth_redirect_uri', redirectUri);
+      try { localStorage.setItem('config.redirect_uri', redirectUri); } catch(e){}
 
       var params = new URLSearchParams({
         response_type: 'code',

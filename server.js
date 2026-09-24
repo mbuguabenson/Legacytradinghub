@@ -22,9 +22,9 @@ function resolveRedirectUrl(site) {
   const normalized = value && String(value).trim();
   if (!normalized) {
     const fallbackHost = site && site.primaryDomain ? site.primaryDomain : BRAND.primaryDomain;
-    return fallbackHost ? `https://${fallbackHost}/` : 'https://localhost/';
+    return fallbackHost ? `https://${fallbackHost}` : 'https://localhost';
   }
-  return /^https?:\/\//i.test(normalized) ? normalized : `https://${normalized.replace(/^\/+/, '')}`;
+  return (/^https?:\/\//i.test(normalized) ? normalized : `https://${normalized.replace(/^\/+/, '')}`).replace(/\/+$/, '');
 }
 
 function buildTokens(site) {
@@ -307,14 +307,15 @@ app.post('/api/oauth/token', express.json(), async (req, res) => {
     const tokenUrl = env === 'staging'
       ? 'https://staging-auth.deriv.com/oauth2/token'
       : 'https://auth.deriv.com/oauth2/token';
-    const site = resolveSiteForReq(req);
+    const site = await resolveSiteForReq(req);
     const defaultClientId = site && site.derivAppId;
     const siteRedirect = resolveRedirectUrl(site);
+    const redirectUri = (b.redirect_uri || siteRedirect || '').trim().replace(/\/+$/, '');
     const form = new URLSearchParams({
       grant_type: b.grant_type || 'authorization_code',
-      client_id: b.client_id || defaultClientId,
+      client_id: b.client_id || defaultClientId || '34upwmAmuO1weyybB7ptp',
       code: b.code || '',
-      redirect_uri: b.redirect_uri || siteRedirect,
+      redirect_uri: redirectUri,
       code_verifier: b.code_verifier || '',
     });
     const upstream = await fetch(tokenUrl, {

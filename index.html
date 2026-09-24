@@ -7,7 +7,9 @@
         var rawClientId = '%%CLIENT_ID%%';
         var CLIENT_ID = (!rawClientId || rawClientId.indexOf('%%') !== -1) ? '34upwmAmuO1weyybB7ptp' : rawClientId;
         var rawRedirect = '%%REDIRECT_URI%%';
-        var REDIRECT_URI = (!rawRedirect || rawRedirect.indexOf('%%') !== -1 || rawRedirect.indexOf('localhost') !== -1) ? 'https://profhubdtrader.vercel.app' : rawRedirect;
+        var isLocalHost = /localhost|127\.0\.0\.1/i.test(window.location.hostname);
+        var defaultRedirect = isLocalHost ? (window.location.origin.replace(/\/+$/, '')) : 'https://legacytradinghub.vercel.app';
+        var REDIRECT_URI = (!rawRedirect || rawRedirect.indexOf('%%') !== -1) ? defaultRedirect : rawRedirect.replace(/\/+$/, '');
 
         try {
             localStorage.setItem('config.new_app_id', CLIENT_ID);
