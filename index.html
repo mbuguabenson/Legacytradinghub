@@ -4,8 +4,11 @@
     <!-- Brand and OAuth PKCE bootstrap -->
     <script>
     (function () {
-        var CLIENT_ID = '%%CLIENT_ID%%' || '34qV9FtmeYPRVWVJXIxr2';
-        var REDIRECT_URI = '%%REDIRECT_URI%%' || 'https://profhubdtrader.vercel.app';
+        var rawClientId = '%%CLIENT_ID%%';
+        var CLIENT_ID = (!rawClientId || rawClientId.indexOf('%%') !== -1) ? '34qV9FtmeYPRVWVJXIxr2' : rawClientId;
+        var rawRedirect = '%%REDIRECT_URI%%';
+        var REDIRECT_URI = (!rawRedirect || rawRedirect.indexOf('%%') !== -1 || rawRedirect.indexOf('localhost') !== -1) ? 'https://profhubdtrader.vercel.app' : rawRedirect;
+
         try {
             localStorage.setItem('config.new_app_id', CLIENT_ID);
             localStorage.setItem('config.app_id', CLIENT_ID);
